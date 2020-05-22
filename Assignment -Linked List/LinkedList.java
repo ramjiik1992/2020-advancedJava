@@ -1,112 +1,98 @@
-package assignments;
+package selfunderstanding;
 
 public class LinkedList {
 
-  private Node head;
 
-  private int counter;
+  Node head;
 
-  public void add(Object data) {
+  int counter;
 
-    if (head == null) {
-      head = new Node(data);
+  public void add(Object content) {
+
+    Node current = new Node(content);
+    if (head == null) { // check first element or not
+
+      head = current;
+    }else {
+      Node temp =head;
+      while (temp.getNext() != null) { // adding element to end of list
+        temp = temp.getNext();
+      }
+
+      temp.setNext(current);
+
     }
 
-    Node temp = new Node(data);
-
-    Node current = head;
-
-
-    while (current.getNext() != null) {
-      current = current.getNext();
-    }
-
-    current.setNext(temp);
-
-
+    
     counter++;
 
   }
 
 
-  public void add(Object data, int index) {
+  public boolean remove(int index) {
 
-    Node temp = new Node(data);
+    if (index < 0 || index > size()) {
 
-    Node current = head;
-
-    if (current != null) {
-
-      for (int i = 0; i < index && current.getNext() != null; i++) {
-        current = current.getNext();
-
-      }
-
-
-      temp.setNext(current.getNext());
-
-      current.setNext(temp);
-
-      counter++;
+      return false;
     }
+
+    Node temp=head;
+    for (int i = 0; i < index-1; i++) {
+      temp = temp.getNext();
+
+    }
+    if(temp.getNext() ==null) { //if given element is last element
+      temp.setNext(null);
+    }else {
+      temp.setNext(temp.getNext().getNext());  
+    }
+    
+    
+    counter--;
+    return true;
   }
+
+
+  public boolean set(Object content, int index) {
+
+    if (index < 0 || index > size()) {
+
+      return false;
+    }
+
+    Node temp=head;
+    for (int i = 0; i < index; i++) { // iterate to given location
+
+      temp = temp.getNext();
+
+    }
+
+    temp.setContent(content);
+
+    return true;
+
+  }
+
 
   public Object get(int index) {
 
-    if (index < 0) {
-      return null;
+    if (index < 0 || index > size()) {
+
+      return false;
     }
 
-    if (head != null) {
+    Node temp =head;
+    for (int i = 0; i < index; i++) {
+      temp = temp.getNext();
 
-      Node current = head.getNext();
-
-      for (int i = 0; i < index; i++) {
-        current = current.getNext();
-
-      }
-
-      return current.getContent();
     }
 
-    return null;
+    return temp.getContent();
+
   }
 
 
-  public int getCounter() {
-    return counter;
-  }
-
-
-  public boolean remove(int index) {
-
-
-    if (head != null) {
-
-      Node current = head.getNext();
-
-      for (int i = 0; i < index; i++) {
-
-        if (current.getNext() == null) {
-          return false;
-        }
-
-        current = current.getNext();
-      }
-
-      current.getNext().setNext(current.getNext().getNext());
-
-      counter--;
-
-      return true;
-    }
-
-    return false;
-
-
-  }
-
-  public int getSize() {
+  public int size() {
     return counter;
   }
 
