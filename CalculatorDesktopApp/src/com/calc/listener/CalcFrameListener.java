@@ -1,0 +1,16 @@
+package com.calc.listener;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public  class CalcFrameListener extends WindowAdapter{
+
+  
+  @Override
+  public void windowClosing(WindowEvent e) {
+
+    System.exit(0);
+    
+  }
+  
+}
